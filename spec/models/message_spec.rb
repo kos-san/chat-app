@@ -21,21 +21,22 @@ RSpec.describe Message, type: :model do
     end
 
     it 'contentとimageが空では保存できないこと' do
-      @message.image = nil
       @message.content = nil
+      @message.image = nil
+      @message.valid?
       expect(@message.errors.full_messages).to include("Content can't be blank")
     end
 
     it 'roomが紐付いていないと保存できないこと' do
       @message.room = nil
       @message.valid?
-      expect(@message.errors.full_messages).to includ("Room must exist")
+      expect(@message.errors.full_messages).to include("Room must exist")
     end
 
     it 'userが紐付いていないと保存できないこと' do
       @message.user = nil
-      @message.valid
-      expect(@message.errors.full_messages).to includ("User must exist")
+      @message.valid?
+      expect(@message.errors.full_messages).to include("User must exist")
     end
   end
 end
